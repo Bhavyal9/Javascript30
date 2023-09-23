@@ -74,23 +74,123 @@
 
       // Array.prototype.filter()
       // 1. Filter the list of inventors for those who were born in the 1500's
+      const invInfo = inventors.filter((i) => {
+        return i.year >= 1500 && i.year < 1600;
+      });
+      console.log(invInfo);
 
       // Array.prototype.map()
       // 2. Give us an array of the inventors first and last names
+      const names = inventors.map((i) => {
+        return `${i.first} ${i.last}`;
+      });
+      console.log(names);
 
       // Array.prototype.sort()
+      function compareFun(a, b) {
+        return b.year - a.year;
+      }
       // 3. Sort the inventors by birthdate, oldest to youngest
+      const sortedArr = inventors.sort(compareFun);
+      console.log(sortedArr);
 
       // Array.prototype.reduce()
       // 4. How many years did all the inventors live all together?
+      const ageSum = inventors
+        .map((i) => {
+          return i.passed - i.year;
+        })
+        .reduce((accumulator, currVal) => {
+          return currVal + accumulator;
+        }, 0);
+      console.log(ageSum);
 
       // 5. Sort the inventors by years lived
+      function sortAges(a, b) {
+        let age1 = a.passed - a.year;
+        let age2 = b.passed - b.year;
+        return age2 > age1 ? 1 : -1;
+      }
+
+      const sortedAge = inventors.sort(sortAges);
+
+      console.log(sortedAge);
 
       // 6. create a list of Boulevards in Paris that contain 'de' anywhere in the name
       // https://en.wikipedia.org/wiki/Category:Boulevards_in_Paris
 
+      let content = `
+      Boulevards of Paris
+      City walls of Paris
+      Thiers wall
+      Wall of Charles V
+      Wall of Philip II Augustus
+      *
+      City gates of Paris
+      Haussmann's renovation of Paris
+      Boulevards of the Marshals
+      A
+      Boulevard Auguste-Blanqui
+      B
+      Boulevard Barbès
+      Boulevard Beaumarchais
+      Boulevard de l'Amiral-Bruix
+      Boulevard Mortier
+      Boulevard Poniatowski
+      Boulevard Soult
+      C
+      Boulevard des Capucines
+      Boulevard de la Chapelle
+      Boulevard de Clichy
+      Boulevard du Crime
+      G
+      Boulevard du Général-d'Armée-Jean-Simon
+      H
+      Boulevard Haussmann
+      Boulevard de l'Hôpital
+      I
+      Boulevard des Italiens
+      L
+      Boulevard Lefebvre
+      M
+      Boulevard de la Madeleine
+      Boulevard de Magenta
+      Boulevard Malesherbes
+      Boulevard Marguerite-de-Rochechouart
+      Boulevard Montmartre
+      Boulevard du Montparnasse
+      R
+      Boulevard Raspail
+      Boulevard Richard-Lenoir
+      S
+      Boulevard Saint-Germain
+      Boulevard Saint-Michel
+      Boulevard de Sébastopol
+      Boulevard de Strasbourg
+      T
+      Boulevard du Temple
+      V
+      Boulevard Voltaire
+      Z
+      Boulevard de la Zone`;
+
+      let contentArr = content.split("\n");
+      const deArr = contentArr.filter((content) => {
+        return content.includes("de");
+      });
+      console.log(deArr);
       // 7. sort Exercise
       // Sort the people alphabetically by last name
+
+      console.log("-------------");
+
+      const sortedPpl = people.sort((firstPerson, lastPerson) => {
+        const [alast, afirst] = firstPerson.split(",");
+        const [blast, bfirst] = lastPerson.split(",");
+        return alast > blast ? 1 : -1;
+      });
+
+      console.log(sortedPpl);
 
       // 8. Reduce Exercise
       // Sum up the instances of each of these
@@ -110,6 +210,16 @@
         "car",
         "truck",
       ];
+
+      const sortedData = data.reduce((obj, item) => {
+        if (!obj[item]) {
+          obj[item] = 0;
+        }
+        obj[item]++;
+        return obj;
+      }, {});
+
+      console.log(sortedData);
     </script>
   </body>
 </html>
